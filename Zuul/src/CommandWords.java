@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class CommandWords
 {
     private final String[] validCommands = {
@@ -11,7 +13,7 @@ public class CommandWords
     public boolean isCommand(String wordToCheck)
     {
         for(int i = 0; i < getCommandWords().length; i++) {
-            if(getCommandWords().equals(wordToCheck))
+            if(Arrays.stream(getCommandWords()).anyMatch(wordToCheck::equals))
                 return true;
         }
         return false;

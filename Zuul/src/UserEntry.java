@@ -5,17 +5,18 @@ public class UserEntry {
     private String firstWord;
     private String secondWord;
     private CommandWords commandWords = new CommandWords();
+    private Scanner reader;
 
-    public UserEntry readEntry() {
-        try (Scanner reader = new Scanner(System.in)) {
-            String userEntry = reader.nextLine();
-            boolean isCommand;
-
-            do{
+    public Command readEntry() {
+            boolean isCommand = false;
+        
+            while(! isCommand){
+                System.out.print("> ");
+                reader = new Scanner(System.in);
+                String userEntry = reader.nextLine();
                 isCommand = validateEntry(userEntry);
-            }while(! isCommand);
-        }
-        return new UserEntry();
+            };
+        return new Command(getFirstWord(),getSecondWord());
     }
 
     public String getFirstWord(){
@@ -36,9 +37,9 @@ public class UserEntry {
 
     private boolean validateEntry(String userEntry) {
         String[] userWords = userEntry.split(" ");
-
+        
         if(userWords.length > 2 || userWords.length < 1){
-            System.out.println("Entry error. Only two words allowed.");
+            System.out.println("Error. Only two words allowed.");
             return false;
         }
 
