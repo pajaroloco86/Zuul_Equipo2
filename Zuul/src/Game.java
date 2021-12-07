@@ -1,16 +1,30 @@
 public class Game {
+    private static Game uniqueInstanceGame;
     private Room currentRoom;
-    UserEntry userEntry = new UserEntry();
+    private UserEntry userEntry;
+    private ProcessCommand processCommand;
+    private MessagesGame messagesGame;
 
-    public Game(){
+    public static Game getUniqueInstanceGame(){
+        if(uniqueInstanceGame == null){
+            uniqueInstanceGame = new Game();
+        }
+        return uniqueInstanceGame;
+    }
+
+    private Game(){
+        userEntry = new UserEntry();
+        processCommand = new ProcessCommand();
+        messagesGame = new MessagesGame();
+        //Aqui hay que ajustar con Alexis
         createRooms();
     }
 
-    private void createRooms()
-    {
+    //Aqui hay que ajustar con Alexis
+    private void createRooms(){
         Room outside, theatre, pub, lab, office;
       
-        outside = new Room("outside the main entrance of the university");
+        outside = new Room("outside, the main entrance of the university.");
         theatre = new Room("in a lecture theatre");
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
@@ -25,97 +39,27 @@ public class Game {
         currentRoom = outside; 
     }
 
-    public void play() 
-    {            
-        boolean finished = false;
-        do {
-            Command command = userEntry.readEntry();
-            finished = processCommand(command);
-        }while(! finished);
+    public void playGame() {
+        boolean gameOver = false;
+
+        while(!gameOver) {
+            gameOver = getCommandGame();
+        }
+
         System.out.println("Thank you for playing.  Good bye.");
     }
 
-    private boolean processCommand(Command command) 
-    {
-        boolean wantToQuit = false;
-
-        if(command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
-
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help"))
-            printHelp();
-        else if (commandWord.equals("go"))
-            goRoom(command);
-        else if (commandWord.equals("quit"))
-            wantToQuit = quit(command);
-
-        return wantToQuit;
+    public boolean getCommandGame(){
+        messagesGame.locationMessage(getCurrentRoom());
+        Command command = userEntry.readValidEntry();
+        return processCommand.processCommand(command);
     }
 
-    private void printHelp() 
-    {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-        Room nextRoom = null;
-        if(direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
-        }
-        if(direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
-        }
-        if(direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
-        }
-        if(direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
-        }
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
-            System.out.print("Exits: ");
-            if(currentRoom.northExit != null) {
-                System.out.print("north ");
-            }
-            if(currentRoom.eastExit != null) {
-                System.out.print("east ");
-            }
-            if(currentRoom.southExit != null) {
-                System.out.print("south ");
-            }
-            if(currentRoom.westExit != null) {
-                System.out.print("west ");
-            }
-            System.out.println();
-        }
-    }
-    private boolean quit(Command command) 
-    {
-        if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
-            return false;
-        }
-        else {
-            return true;
-        }
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 }

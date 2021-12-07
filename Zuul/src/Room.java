@@ -28,4 +28,19 @@ public class Room
         return description;
     }
 
+    public Room getNorthExit() {
+        return northExit;
+    }
+
+    public Room getSouthExit() {
+        return southExit;
+    }
+
+    public Room getEastExit() {
+        return eastExit;
+    }
+
+    public Room getWestExit() {
+        return westExit;
+    }
 }
