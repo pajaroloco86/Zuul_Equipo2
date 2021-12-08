@@ -42,7 +42,10 @@ public class Game {
     public void playGame() {
         boolean gameOver = false;
 
+        messagesGame.welcomeMessage();
+        
         while(!gameOver) {
+            messagesGame.exitsCurrentRoom(getCurrentRoom());
             gameOver = getCommandGame();
         }
 
@@ -50,7 +53,6 @@ public class Game {
     }
 
     public boolean getCommandGame(){
-        messagesGame.locationMessage(getCurrentRoom());
         Command command = userEntry.readValidEntry();
         return processCommand.processCommand(command);
     }
