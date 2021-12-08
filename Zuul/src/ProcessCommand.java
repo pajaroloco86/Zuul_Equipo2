@@ -34,16 +34,16 @@ public class ProcessCommand {
 
         switch (direction){
             case "north":
-                nextRoom = Game.getUniqueInstanceGame().getCurrentRoom().getNorthExit();
+                nextRoom = Game.getUniqueInstanceGame().getCurrentRoomNorthExit();
                 break;
             case "east":
-                nextRoom = Game.getUniqueInstanceGame().getCurrentRoom().getEastExit();
+                nextRoom = Game.getUniqueInstanceGame().getCurrentRoomEastExit();
                 break;
             case "south":
-                nextRoom = Game.getUniqueInstanceGame().getCurrentRoom().getSouthExit();
+                nextRoom = Game.getUniqueInstanceGame().getCurrentRoomSouthExit();
                 break;
             case "west":
-                nextRoom = Game.getUniqueInstanceGame().getCurrentRoom().getWestExit();
+                nextRoom = Game.getUniqueInstanceGame().getCurrentRoomWestExit();
                 break;
         }
 

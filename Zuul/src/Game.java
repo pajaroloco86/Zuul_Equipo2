@@ -64,4 +64,20 @@ public class Game {
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
+
+    public Room getCurrentRoomNorthExit() {
+        return getCurrentRoom().getNorthExit();
+    }
+
+    public Room getCurrentRoomSouthExit() {
+        return getCurrentRoom().getSouthExit();
+    }
+
+    public Room getCurrentRoomEastExit() {
+        return getCurrentRoom().getEastExit();
+    }
+
+    public Room getCurrentRoomWestExit() {
+        return getCurrentRoom().getWestExit();
+    }
 }
