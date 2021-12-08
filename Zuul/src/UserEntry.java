@@ -21,32 +21,32 @@ public class UserEntry {
             String userEntry = reader.nextLine();
             isCommand = validateEntry(userEntry.toLowerCase());
         }
-
         return new Command(getFirstWord(),getSecondWord());
     }
 
     private boolean validateEntry(String userEntry) {
         String[] userWords = userEntry.split(" ");
-
+       
         if(!Arrays.stream(commandWords.getCommandWords()).anyMatch(userWords[0]::equals)){
             messagesGame.invalidCommandWord();
             return false;
         }
 
-        //Refactoring
-        if(userWords[0].equals("help")){
-            if(userWords.length > 1){
-                return false;
-            }
-        }
-        
-        if(!(userWords.length == 2 || userWords.length == 1)) {    
+        else if(!(userWords.length == 2 || userWords.length == 1)) {    
             messagesGame.userWordsLength();
             return false;
         }
 
+        else if(userWords[0].equals("help")){
+            setFirstWord(userWords[0]);
+            return true;
+        }
+
+        else if(userWords.length == 2){
+            setSecondWord(userWords[1]);
+        }
+        
         setFirstWord(userWords[0]);
-        setSecondWord(userWords[1]);
 
         return true;
     }

@@ -8,7 +8,7 @@ public class ProcessCommand {
     public boolean processCommand(Command command) {
         boolean wantToQuit = false;
         String commandWord = command.getCommandWord();
-
+        
         switch (commandWord){
             case "help":
                 optionHelp();
