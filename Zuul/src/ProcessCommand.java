@@ -51,29 +51,10 @@ public class ProcessCommand {
             System.out.println("There is no door!");
         }
         else {
-            goRoom(nextRoom);
+            Game.getUniqueInstanceGame().setCurrentRoom(nextRoom);
         }
     }
-
-    private void goRoom(Room nextRoom){
-        Game.getUniqueInstanceGame().setCurrentRoom(nextRoom);
-        System.out.println("You are " + Game.getUniqueInstanceGame().getCurrentRoom().getDescription());
-        System.out.print("Exits: ");
-        if(Game.getUniqueInstanceGame().getCurrentRoom().northExit != null) {
-            System.out.print("north ");
-        }
-        if(Game.getUniqueInstanceGame().getCurrentRoom().eastExit != null) {
-            System.out.print("east ");
-        }
-        if(Game.getUniqueInstanceGame().getCurrentRoom().southExit != null) {
-            System.out.print("south ");
-        }
-        if(Game.getUniqueInstanceGame().getCurrentRoom().westExit != null) {
-            System.out.print("west ");
-        }
-        System.out.println();
-    }
-
+    
     private boolean quit(Command command){
         if(command.getSecondWord().equals("game")) {
             return true;

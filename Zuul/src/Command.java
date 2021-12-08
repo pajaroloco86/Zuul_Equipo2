@@ -7,13 +7,11 @@ public class Command{
         this.secondWord = secondWord;
     }
 
-    public String getCommandWord()
-    {
+    public String getCommandWord() {
         return commandWord;
     }
 
-    public String getSecondWord()
-    {
+    public String getSecondWord() {
         return secondWord;
     }
 }

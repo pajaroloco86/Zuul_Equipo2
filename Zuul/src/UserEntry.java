@@ -5,10 +5,12 @@ public class UserEntry {
     private String firstWord;
     private String secondWord;
     private CommandWords commandWords;
+    private MessagesGame messagesGame;
     private Scanner reader;
 
     public UserEntry(){
         commandWords = new CommandWords();
+        messagesGame = new MessagesGame();
     }
 
     public Command readValidEntry() {
@@ -17,23 +19,29 @@ public class UserEntry {
         while(!isCommand){
             reader = new Scanner(System.in);
             String userEntry = reader.nextLine();
-            isCommand = validateEntry(userEntry);
+            isCommand = validateEntry(userEntry.toLowerCase());
         }
 
         return new Command(getFirstWord(),getSecondWord());
     }
 
-    //Hacer más verificaciones puede ingresar solo go y falla
-    //convertir a minusculas
-    //aceptar que puede ser solohelp y es valido
     private boolean validateEntry(String userEntry) {
         String[] userWords = userEntry.split(" ");
 
-        if(userWords.length > 2 || userWords.length < 1) {
-            System.out.println("No. Only two words allowed!. Try again");
+        if(!Arrays.stream(commandWords.getCommandWords()).anyMatch(userWords[0]::equals)){
+            messagesGame.invalidCommandWord();
             return false;
-        }else if(!Arrays.stream(commandWords.getCommandWords()).anyMatch(userWords[0]::equals)){
-            System.out.println("I don't know what you mean...");
+        }
+
+        //Refactoring
+        if(userWords[0].equals("help")){
+            if(userWords.length > 1){
+                return false;
+            }
+        }
+        
+        if(!(userWords.length == 2 || userWords.length == 1)) {    
+            messagesGame.userWordsLength();
             return false;
         }
 
