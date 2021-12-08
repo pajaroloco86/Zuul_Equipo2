@@ -54,7 +54,7 @@ public class ProcessCommand {
             Game.getUniqueInstanceGame().setCurrentRoom(nextRoom);
         }
     }
-    
+
     private boolean quit(Command command){
         if(command.getSecondWord().equals("game")) {
             return true;
