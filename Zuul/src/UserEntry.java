@@ -27,7 +27,7 @@ public class UserEntry {
     private boolean validateEntry(String userEntry) {
         String[] userWords = userEntry.split(" ");
        
-        if(!Arrays.stream(commandWords.getCommandWords()).anyMatch(userWords[0]::equals)){
+        if(isCommandWord(userWords[0])){
             messagesGame.invalidCommandWord();
             return false;
         }
@@ -45,7 +45,7 @@ public class UserEntry {
         else if(userWords.length == 2){
             setSecondWord(userWords[1]);
         }
-        
+
         setFirstWord(userWords[0]);
 
         return true;
@@ -65,5 +65,9 @@ public class UserEntry {
 
     public void setSecondWord(String secondWord){
         this.secondWord = secondWord;
+    }
+
+    private boolean isCommandWord(String WordToCheck){
+       return !Arrays.stream(commandWords.getCommandWords()).anyMatch(WordToCheck::equals);
     }
 }

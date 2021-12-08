@@ -9,12 +9,12 @@ public class CommandWords {
 
     public boolean isCommand(String wordToCheck){
         for(int i = 0; i < getCommandWords().length; i++) {
-            if(iswordInValidCommands(wordToCheck)) return true;
+            if(isWordInValidCommands(wordToCheck)) return true;
         }
         return false;
     }
 
-    private boolean iswordInValidCommands(String wordToCheck){
+    private boolean isWordInValidCommands(String wordToCheck){
         return Arrays.stream(getCommandWords()).anyMatch(wordToCheck::equals);
     }
 }
