@@ -5,46 +5,61 @@ public class Game {
     private ProcessCommand processCommand;
     private MessagesGame messagesGame;
 
-    public static Game getUniqueInstanceGame(){
-        if(uniqueInstanceGame == null){
+    public static Game getUniqueInstanceGame() {
+        if (uniqueInstanceGame == null) {
             uniqueInstanceGame = new Game();
         }
         return uniqueInstanceGame;
     }
 
-    private Game(){
+    private Game() {
         userEntry = new UserEntry();
         processCommand = new ProcessCommand();
         messagesGame = new MessagesGame();
-        //Aqui hay que ajustar con Alexis
         createRooms();
     }
 
-    //Aqui hay que ajustar con Alexis
-    private void createRooms(){
-        Room outside, theatre, pub, lab, office;
-      
-        outside = new Room("outside, the main entrance of the university.");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
-        outside.setExits(null, theatre, lab, pub);
-        theatre.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+    private void createRooms() {
+        try {
+            JSONParser jsonData = new JSONParser("./Zuul/src/Example.json");
+            String[] roomKeys = jsonData.getRoomsKeys();
+            Room[] rooms = new Room[roomKeys.length];
 
-        currentRoom = outside; 
+            for (int i = 0; i < roomKeys.length; i++) {
+                rooms[i] = new Room(jsonData.getRoomDescription(roomKeys[i]));
+            }
+
+            for (int i = 0; i < rooms.length; i++) {
+                String[] togheterRooms = jsonData.getTogetherRooms(roomKeys[i]);
+
+                Room northRoom = searchRoomIndexBykey(togheterRooms[0], roomKeys, rooms);
+                Room eastRoom = searchRoomIndexBykey(togheterRooms[1], roomKeys, rooms);
+                Room westRoom = searchRoomIndexBykey(togheterRooms[2], roomKeys, rooms);
+                Room southRoom = searchRoomIndexBykey(togheterRooms[3], roomKeys, rooms);
+
+                rooms[i].setExits(northRoom, eastRoom, southRoom, westRoom);
+            }
+            currentRoom = rooms[0];
+        } catch (Exception e) {
+            System.out.println("Error en la creación de los cuartos");
+        }
+    }
+
+    private Room searchRoomIndexBykey(String roomKey, String[] roomsKeys, Room[] rooms) {
+        for (int j = 0; j < roomsKeys.length; j++) {
+            if (roomKey.equals(roomsKeys[j])) {
+                return rooms[j];
+            }
+        }
+        return null;
     }
 
     public void playGame() {
         boolean gameOver = false;
 
         messagesGame.welcomeMessage();
-        
-        while(!gameOver) {
+
+        while (!gameOver) {
             messagesGame.exitsCurrentRoom(getCurrentRoom());
             gameOver = getCommandGame();
         }
@@ -52,7 +67,7 @@ public class Game {
         System.out.println("Thank you for playing.  Good bye.");
     }
 
-    public boolean getCommandGame(){
+    public boolean getCommandGame() {
         Command command = userEntry.readValidEntry();
         return processCommand.processCommand(command);
     }
