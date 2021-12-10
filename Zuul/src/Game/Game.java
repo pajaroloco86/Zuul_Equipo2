@@ -1,3 +1,5 @@
+package Game;
+
 public class Game {
     private static Game uniqueInstanceGame;
     private Room currentRoom;
@@ -16,14 +18,13 @@ public class Game {
         userEntry = new UserEntry();
         processCommand = new ProcessCommand();
         messagesGame = new MessagesGame();
-        createRooms();
     }
 
     //El archivo de entrada tiene que ser de tipo JSON con el siguiente formato:
     //{"ROOM":{"description":"", "northRoom": "value","eastRoom":"value","westRoom":"value","southRoom":"value"}}
-    private void createRooms() {
+    private void createRooms(String filePath) {
         try {
-            JSONParser jsonData = new JSONParser("src/Example.json");
+            JSONParser jsonData = new JSONParser(filePath);
             String[] roomKeys = jsonData.getRoomsKeys();
             Room[] rooms = new Room[roomKeys.length];
 
@@ -56,8 +57,9 @@ public class Game {
         return null;
     }
 
-    public void playGame() {
+    public void playGame(String filePath) {
         boolean gameOver = false;
+        createRooms(filePath);
 
         messagesGame.welcomeMessage();
 

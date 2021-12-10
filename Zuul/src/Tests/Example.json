@@ -1,0 +1,6 @@
+{"outside":{"description":"outside, the main entrance of the university.", "northRoom": null,"eastRoom":"theatre","westRoom":"pub","southRoom":"lab"},
+"theatre":{"description":"in a lecture theatre", "northRoom": null,"eastRoom": null,"westRoom":"outside","southRoom": null},
+"pub":{"description":"in the campus pub", "northRoom": null,"eastRoom":"outside","westRoom": null,"southRoom": null},
+"lab":{"description":"in a computing lab", "northRoom": "outside","eastRoom": "office","westRoom": null,"southRoom":null},
+"office":{"description":"in the computing admin office", "northRoom": null,"eastRoom": null,"westRoom": "lab","southRoom":null}
+}

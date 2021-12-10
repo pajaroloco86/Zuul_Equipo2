@@ -1,11 +1,11 @@
+package Game;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 public class JSONParser {
     JSONObject fileData;
@@ -53,17 +53,5 @@ public class JSONParser {
     public String getRoomDescription(String roomKey) throws JSONException {
         JSONObject room = fileData.getJSONObject(roomKey);
         return (String) room.getString("description");
-    }
-
-    @Test
-    public void testMapParser() throws Exception{
-        String jsonText = "{\"outside\":{\"description\":\"outside, the main entrance of the university.\", \"northRoom\": null,\"eastRoom\":\"theatre\",\"westRoom\":\"pub\",\"southRoom\":\"lab\"},";
-        jsonText += "\"theatre\":{\"description\":\"in a lecture theatre\", \"northRoom\": null,\"eastRoom\": null,\"westRoom\":\"outside\",\"southRoom\": null},";
-        jsonText += "\"pub\":{\"description\":\"in the campus pub\", \"northRoom\": null,\"eastRoom\":\"outside\",\"westRoom\": null,\"southRoom\": null},";
-        jsonText += "\"lab\":{\"description\":\"in a computing lab\", \"northRoom\": \"outside\",\"eastRoom\": \"office\",\"westRoom\": null,\"southRoom\":null},";
-        jsonText += "\"office\":{\"description\":\"in the computing admin office\", \"northRoom\": null,\"eastRoom\": null,\"westRoom\": \"lab\",\"southRoom\":null}";
-        jsonText += "}";
-
-        Assert.assertTrue(new JSONObject(jsonText).equals(getFileData("src/Example.json")));
     }
 }

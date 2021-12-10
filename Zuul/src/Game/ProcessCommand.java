@@ -1,3 +1,5 @@
+package Game;
+
 public class ProcessCommand {
     private MessagesGame messagesGame;
 
