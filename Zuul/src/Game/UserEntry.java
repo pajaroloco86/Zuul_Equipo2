@@ -8,7 +8,7 @@ public class UserEntry {
     private String secondWord;
     private CommandWords commandWords;
     private MessagesGame messagesGame;
-    private Scanner reader = new Scanner(System.in);;
+    private Scanner reader = new Scanner(System.in);
 
     public UserEntry(){
         commandWords = new CommandWords();
