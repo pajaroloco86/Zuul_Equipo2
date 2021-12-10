@@ -19,9 +19,11 @@ public class Game {
         createRooms();
     }
 
+    //El archivo de entrada tiene que ser de tipo JSON con el siguiente formato:
+    //{"ROOM":{"description":"", "northRoom": "value","eastRoom":"value","westRoom":"value","southRoom":"value"}}
     private void createRooms() {
         try {
-            JSONParser jsonData = new JSONParser("./Zuul/src/Example.json");
+            JSONParser jsonData = new JSONParser("src/Example.json");
             String[] roomKeys = jsonData.getRoomsKeys();
             Room[] rooms = new Room[roomKeys.length];
 

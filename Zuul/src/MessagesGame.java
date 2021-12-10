@@ -8,14 +8,29 @@ public class MessagesGame {
     }
 
     public void invalidCommandWord(){
-        System.out.println("\n");
         System.out.println("I don't know what you mean..." + 
         "\nTry again, remember the first word should be a CommandWord:\n" +
-        "'help','go','quit'");            
+        "'help','go','quit'\n");            
+    }
+
+    public void wrongDirection(){
+        System.out.println("There is no such place, try again...\n");
+    }
+
+    public void quitWhat(){
+        System.out.println("Quit what?\n");
+    }
+
+    public void missingDirection(){
+        System.out.println("You are missing the direction, try again...\n");
+    }
+
+    public void justTypeHelp(){
+        System.out.println("Just type 'help'\n");
     }
 
     public void exitsCurrentRoom(Room room){
-        System.out.println("You are in " + room.description);
+        System.out.println("You are " + room.description);
         
         System.out.print("Exits: ");
         if(room.getNorthExit() != null) {
@@ -42,7 +57,6 @@ public class MessagesGame {
     }
 
     public void userWordsLength(){
-        System.out.println("\n");
         System.out.println("Only two words allowed! or type 'help'. Try again");
         System.out.println("Your command words are:");
         System.out.println("'go DIRECTION' 'quit game' 'help'\n");
