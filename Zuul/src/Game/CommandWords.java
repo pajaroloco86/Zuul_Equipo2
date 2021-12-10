@@ -1,3 +1,5 @@
+package Game;
+
 import java.util.Arrays;
 
 public class CommandWords {

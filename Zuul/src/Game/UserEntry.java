@@ -1,3 +1,5 @@
+package Game;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -6,7 +8,7 @@ public class UserEntry {
     private String secondWord;
     private CommandWords commandWords;
     private MessagesGame messagesGame;
-    private Scanner reader;
+    private Scanner reader = new Scanner(System.in);
 
     public UserEntry(){
         commandWords = new CommandWords();
@@ -17,7 +19,6 @@ public class UserEntry {
         boolean isCommand = false;
 
         while(!isCommand){
-            reader = new Scanner(System.in);
             String userEntry = reader.nextLine();
             isCommand = validateEntry(userEntry.toLowerCase());
         }
