@@ -1,3 +1,5 @@
+package Game;
+
 public class ProcessCommand {
     private MessagesGame messagesGame;
 
@@ -17,7 +19,7 @@ public class ProcessCommand {
                 processDirectioner(command);
                 break;
             case "quit":
-                wantToQuit = quit(command);
+                wantToQuit = isQuitCommand(command);
                 break;
         }
         return wantToQuit;
@@ -27,7 +29,6 @@ public class ProcessCommand {
         messagesGame.helpMessage();
     }
 
-    //Nulos creo que deben cambiarse
     private void processDirectioner(Command command) {
         String direction = command.getSecondWord();
         Room nextRoom = null;
@@ -47,20 +48,20 @@ public class ProcessCommand {
                 break;
         }
 
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
+        if ((nextRoom == null) || (!direction.equals("north") && !direction.equals("east") && !direction.equals("west") && !direction.equals("south"))) {
+            messagesGame.wrongDirection();
         }
         else {
             Game.getUniqueInstanceGame().setCurrentRoom(nextRoom);
         }
     }
 
-    private boolean quit(Command command){
+    private boolean isQuitCommand(Command command){
         if(command.getSecondWord().equals("game")) {
             return true;
         }
         else {
-            System.out.println("Quit what?");
+            messagesGame.quitWhat();
             return false;
         }
     }

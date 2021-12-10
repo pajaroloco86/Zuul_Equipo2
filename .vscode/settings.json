@@ -1,6 +1,8 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "Zuul/lib/org.json.jar"
+        "Zuul/lib/org.json.jar",
+        "Zuul/lib/jcommander-1.81.jar",
+        "Zuul/lib/testng-7.4.0.jar"
     ]
 }
