@@ -4,12 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import Game.Game;
+import Game.JSONParser;
 
 public class GameTest {
     private final PrintStream standardOut = System.out;
@@ -27,6 +29,15 @@ public class GameTest {
         Game newGame = Game.getUniqueInstanceGame();
         //Cambiar por la ruta correspondiente o usar una relativa, si es que encuentras como 3:D
         newGame.playGame("D:/Documents/GIT/Zuul_Equipo2/Zuul/src/Tests/Example.json");
+    }
+
+    @Test
+    public void testMapParser() throws Exception{
+        String outsideDescription = "outside, the main entrance of the university.";
+        JSONParser parser = new JSONParser("D:/Documents/GIT/Zuul_Equipo2/Zuul/src/Tests/Example.json");
+        JSONObject outside = parser.getData().getJSONObject("outside");
+        System.out.println(parser.getData().getString("outside"));
+        Assert.assertTrue(outside.getString("description").equals(outsideDescription));
     }
 
     @AfterTest

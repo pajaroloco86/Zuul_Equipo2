@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class JSONParser {
     JSONObject fileData;
 
-    JSONParser(String path) throws Exception {
+    public JSONParser(String path) throws Exception {
         this.fileData = getFileData(path);
     }
 
@@ -42,7 +42,7 @@ public class JSONParser {
 
     public String[] getTogetherRooms(String roomKey) throws JSONException {
         String[] roomsTogetherNames = new String[4];
-        JSONObject room = fileData.getJSONObject(roomKey);
+        JSONObject room = getData().getJSONObject(roomKey);
         roomsTogetherNames[0] = room.getString("northRoom");
         roomsTogetherNames[1] = room.getString("eastRoom");
         roomsTogetherNames[2] = room.getString("westRoom");
@@ -53,5 +53,9 @@ public class JSONParser {
     public String getRoomDescription(String roomKey) throws JSONException {
         JSONObject room = fileData.getJSONObject(roomKey);
         return (String) room.getString("description");
+    }
+
+    public JSONObject getData(){
+        return fileData;
     }
 }
